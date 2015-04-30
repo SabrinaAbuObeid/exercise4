@@ -1,0 +1,29 @@
+<section data-ng-controller="PhotosController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>My Photos</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="photo in photos" data-ng-show="((authentication.user) && (authentication.user._id == photo.user._id))" data-ng-href="#!/photos/{{photo._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on<br>
+				<span data-ng-bind="photo.created | date:'medium'"></span>
+				by<br>
+				<span data-ng-bind="photo.user.displayName"></span>
+			</small><br>
+			<h4 class="list-group-item-heading" data-ng-bind="photo.name"></h4>
+			<image src="{{photo.image}}" style="max-width:70%" />
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!photos.$resolved || photos.length">
+    	No photos yet, why don't you <a href="/#!/photos/create">create one</a>?
+    </div>
+     <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Copyright &copy; Filter Canyon, Inc 2015</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>
