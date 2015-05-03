@@ -50,6 +50,37 @@ body {
     background-size: cover;
     -o-background-size: cover;
 }
+.photoLiked{
+background: url('../img/LikeHeart.png');
+
+}
+
+.sockets {
+font-size: 2em;
+
+  background:transparent;
+}
+
+.sockets-show-hide {
+font-size: 2em;
+color:  #080808;
+text-transform: uppercase;
+    font-size: 1.25em;
+    font-weight: 400;
+    letter-spacing: 1px;
+  background:transparent;
+}
+
+.sockets-show-hide {
+  -webkit-transition:all linear .5s 03.5s;
+  transition:all linear 0.5s 03.5s;
+  opacity: 0;
+}
+
+.sockets-show-hide.ng-hide {
+  opacity:100;
+}
+
 
 h1,
 h2,

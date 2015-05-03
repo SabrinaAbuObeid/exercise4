@@ -4868,7 +4868,25 @@ a.badge:focus {
 .nav-pills > li > a > .badge {
   margin-left: 3px;
 }
+.jumbotron2 {
+
+  background-image: url('/modules/core/img/brand/LikeHeart.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center ;
+   color: inherit;
+
+}
+
+
+
+    
+
+
+
+
 .jumbotron {
+   
   padding: 30px 15px;
   margin-bottom: 30px;
 
@@ -4879,8 +4897,16 @@ a.badge:focus {
    color: inherit;
 
 }
+.jumbotron3 {
+   
+  padding: 30px 15px;
+  margin-bottom: 30px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center ;
+   color: inherit;
 
-
+}
 .jumbotron h1,
 .jumbotron .h1 {
   font-size:2.5em;

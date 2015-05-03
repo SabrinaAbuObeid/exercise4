@@ -2,30 +2,40 @@
     <div class="page-header">
         <h1>Edit Photo</h1>
     </div>
+
+
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                          <div class="form-group"  >
-                
-                <input data-ng-model="update" data-ng-change="update.invertImage=update" type="submit" value="Invert" class="btn  btn-primary btn-default" ng-model-options="{ getterSetter: true }"></center>
-                 <input data-ng-model="update" data-ng-change="update.greyscaleImage=update" type="submit" value="Greyscale" class="btn btn-default btn-primary" ng-model-options="{ getterSetter: true }"></center>
-                  <input data-ng-model="update" data-ng-change="update.sepiaImage=update" type="submit" value="Sepia" class="btn btn-default btn-primary" ng-model-options="{ getterSetter: true }"></center>
-                  <input type="submit" value="Update"  class="btn btn-default" style="float:right;"></center>
-                </div>
-                    <label class="control-label" for="name" >Photo Name</label>
-                    <div class="controls">
-                      <center>  <input type="text" data-ng-model="photo.name" id="name" class="form-control" placeholder="Name"  required >
-                      
-                     </center>
-                    </div>
-                </div>
+        <fieldset>
+           
+                <label class="control-label" for="name" >Photo Name</label>
+            <div class="controls">
+                <center>  <input type="text" data-ng-model="photo.name" id="name" class="form-control" placeholder="Name"  required >
+                </center>
+            </div><br>
+             <div class="form-group">
+                <input type="submit" value="Update"  class="btn btn-default" style="float:right;"></center>
+            </div>
+            
+            </fieldset>
+        </form>
+    </div>
 
-               
-  <center>  
-                <div class="page-body">
-            <image ng-src="{{photo.image}}"  ng-bind="update.sepiaImage" ng-bind="update.greyscaleImage" ng-bind="update.invertImage"  style="max-width:60%"/>
- <br><br>
+
+
+        <div class="col-md-12">
+          <form class="form-horizontal" data-ng-submit="updateFilter()" novalidate>
+            <fieldset>
+            
+            <center>
+            <input data-ng-model="updateFilter" data-ng-change="updateFilter.invertImage=updateFilter" type="submit" value="Invert" class="btn  btn-primary btn-default" ng-model-options="{ getterSetter: true }"></center>
+           <!-- <input data-ng-model="updateFilter" data-ng-change="updatFilter.greyscaleImage=updateFilter" type="submit" value="Greyscale" class="btn btn-default btn-primary" ng-model-options="{ getterSetter: true }">
+             <input data-ng-model="updateFilter" data-ng-change="updateFilter.sepiaImage=updateFilter" type="submit" value="Sepia" class="btn btn-default btn-primary" ng-model-options="{ getterSetter: true }"></center> -->
+            <center>  
+                <br>
+            <div class="page-body">
+            <image ng-src="{{photo.image}}" ng-bind="updateFilter.invertImage"  style="max-width:60%"/>
+     <br><br>
         </div>
        
                 <br><br><br>

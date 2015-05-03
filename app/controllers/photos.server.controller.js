@@ -72,6 +72,9 @@ exports.like = function(req, res) {
     console.log('Comparing ' + req.photo.likes[i] + ' to ' + req.user._id + ' is ' + req.photo.likes[i].equals(req.user._id));
     if(req.photo.likes[i].equals(req.user._id)) {
       containsValue = true;
+      var photo = req.photo ;
+      var socketio = req.app.get('socketio'); // tacke out socket instance from the app container
+			socketio.sockets.emit('photo.liked', photo); // emit an event for all connected clients
     }
   }
   if(!containsValue) {
@@ -83,31 +86,82 @@ exports.like = function(req, res) {
 		message: errorHandler.getErrorMessage(err)
       });
     } else {
+    	
       res.jsonp(req.photo);
 	 }
   });
 };
+
+
 
 /**
  * Update a Photo
  */
 exports.update = function(req, res) {
 	var photo = req.photo ;
-	var sepiaImage = req.sepiaImage;
+	
+	photo = _.extend(photo , req.body);
 	var invertImage = req.invertImage;
-	var greyscaleImage = req.greyscaleImage;
 	
 	
-	
-	//photo = _.extend(photo , req.body);
-	
-			invertImage = new Jimp('./public/'+photo.image, function (req,res) 
+	photo.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+				if(photo.invertImage){
+			invertImage = new Jimp('./public/'+photo.image, function () 
 			{
   			this.invert(); 
   			this.write('./public/'+photo.image); 
-  		
+
+  			
+  			return;
 			});
-			greyscaleImage = new Jimp('./public/'+photo.image, function (req,res) 
+		
+		}
+		
+	}
+	var socketio = req.app.get('socketio'); // tacke out socket instance from the app container
+			socketio.sockets.emit('photo.updated', photo); // emit an event for all connected clients
+		res.jsonp(photo);
+	});
+};
+
+
+
+
+
+
+
+
+
+/**
+ * Update a Photo with a  Filter 
+ -----Update existing Photo with a filter (same thing as the update function except is called updateFilter 
+	  so it can connect to jimp separately. The photo.save was removed because I want it to write with jimp
+	  but be able to hit the update function to save and see the result.)-------
+
+
+
+exports.updateFilter = function(req, res) {
+	var photo = req.photo.invertImage ;
+	//photo = _.extend(photo , req.body);
+	//var sepiaImage = req.sepiaImage;
+	//var greyscaleImage = req.greyscaleImage;
+	var invertImage = req.invertImage;
+
+		if(invertImage===1){
+			invertImage = new Jimp('./public/'+photo.image, function () 
+			{
+  			this.invert(); 
+  			this.write('./public/'+photo.image); 
+  			console.log('The invertImage SERVER function has been accessed.');
+			});
+
+		}
+			/*greyscaleImage = new Jimp('./public/'+photo.image, function (req,res) 
 			{
 			
   			this.greyscale(); 
@@ -123,19 +177,15 @@ exports.update = function(req, res) {
   			this.write('./public/'+photo.image); 
   		
 			});
-	
-	photo.save(function(err) {
-	 if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			var socketio = req.app.get('socketio'); // tacke out socket instance from the app container
-			socketio.sockets.emit('photo.updated', photo); // emit an event for all connected clients
+
 			res.jsonp(photo);
-		}
-	});
+	
+	
 };
+
+*/
+
+
 
 /**
  * Delete an Photo

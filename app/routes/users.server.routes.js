@@ -4,11 +4,9 @@
  * Module dependencies.
  */
 var passport = require('passport');
-var multer  = require('multer');
-module.exports = function(app) {
-	//pic route
-	app.use(multer({ dest: './public/uploads/'}));
 
+module.exports = function(app) {
+	
 
 	// User Routes
 	var users = require('../../app/controllers/users.server.controller');

@@ -35,15 +35,15 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 				// Clear form fields
 				$scope.title = '';
 				$scope.content = '';
-				
+				Socket.on('article.created', function(article) {
+		    console.log(article);
+		});
+
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
-		Socket.on('article.created', function(article) {
-		    console.log(article);
-		});
-
+		
 		// Remove existing Article
 		$scope.remove = function(article) {
 			if (article) {

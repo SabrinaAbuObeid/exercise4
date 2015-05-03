@@ -5,7 +5,7 @@ angular.module('photos')
 .controller('PhotosController', ['$scope', '$stateParams', '$location', '$http', 'Socket', 'Authentication', 'Photos', 
 	function($scope, $stateParams, $location, $http, Socket, Authentication, Photos) {
 	  $scope.authentication = Authentication;
-
+	  $scope.invertImage = 0;
 	  $scope.likes = 0;
 	  $scope.isLiked = false;
 
@@ -63,44 +63,88 @@ var photo = new Photos ({
 	  };
 
 
-	  var _sepiaImage= '';
-	  var _greyscaleImage= '';
-	  var _invertImage= '';
+	
 		
-	  // Update existing Photo
-	  $scope.update = function() {
-	    
-	    var	sepiaImage = function(newSepiaImage) {
-	    	 console.log('client view title preview');
-     // return angular.isDefined(newSepiaImage) ? (_sepiaImage = newSepiaImage) : _sepiaImage;
-     
-    };
-     var	invertImage = function(newInvertImage) {
-	    	 console.log('client view title preview');
+	  /* -----Update existing Photo with a filter (same thing as the update function except is called updateFilter 
+	  so it can connect to jimp separately)-------*/
 
-      //return angular.isDefined(newInvertImage) ? (_invertImage = newInvertImage) : _invertImage;
-     
-    };
-    var	greyscaleImage = function(newGreyscaleImage) {
-     // return angular.isDefined(newGreyscaleImage) ? (_greyscaleImage = newGreyscaleImage) : _greyscaleImage;
-      
-    };
-    var photo = $scope.photo;
+	  $scope.updateFilter = function(updateFilter) {
+  	    $scope.photo.invertImage =1;
+	   var photo = $scope.photo;
+	    var invertImage = $scope.invertImage;
 	    photo.$update(function() {
+	    	 Socket.on('photo.updated', function(photo) {
+		    console.log('photo updated');
+
+		});
+	  
+	  var _invertImage= '';
+	  invertImage = function(newInvertImage) {
+	  console.log('client view filter preview');
+      return angular.isDefined(newInvertImage) ? (_invertImage = newInvertImage) : _invertImage;
+      };
+
+	  $http.get('/uploads/' + photo._id ).success(function(invertImage) {
+	  	});
+		$http.put('/uploads/' + photo._id ).success(function(invertImage) {
+	  	});
+
+ /* 
+-------I tried the above commented out code in many forms changing paths and also changing photo._id to photo.image and there
+			always seems to be an error. The code works the same with or with out them and what really breaks it is if
+			I remove the location.path code below. I feel like this is where the error is because it isn't loading the result
+			on it's own but the filter applies.-------------------------------------------------------------------------
+
+	  	*/
+	  	console.log('The invertImage CLIENT function has been accessed.');
+	  
 	      $location.path('photos/' + photo._id);
 	    }, function(errorResponse) {
 		 $scope.error = errorResponse.data.message;
 	       });
-	 
-	  //notify socket when updated
-	  $http.put('photos/' + photo._id).success(function() {
-             Socket.on('photo.updated', function(photo) {
+
+
+	   
+
+
+/* THE BELOW CODE IS FOR REALTIME VIEW OF THE FILTERS. IT WORKS WITH OUR BLOG SECTION
+SO ONCE FILTERS WORK, LITTLE TO NO TWEAKING WILL MAKE THIS WORK. THIS IS NOT AFFECTING
+THE CODE AS OF NOW*/
+	
+
+      //var _sepiaImage= '';
+	  //var _greyscaleImage= '';
+	  
+	  /*var sepiaImage = function(newSepiaImage) {
+	    	 console.log('client view title preview');
+      return angular.isDefined(newSepiaImage) ? (_sepiaImage = newSepiaImage) : _sepiaImage;
+      };*/ 
+      /* var greyscaleImage = function(newGreyscaleImage) {
+      return angular.isDefined(newGreyscaleImage) ? (_greyscaleImage = newGreyscaleImage) : _greyscaleImage;
+      };*/
+	  };
+
+
+
+
+
+
+	  // Update existing Photo
+	  $scope.update = function() {
+	    var photo = $scope.photo;
+
+	    photo.$update(function() {
+	    	 Socket.on('photo.updated', function(photo) {
 		    console.log('photo updated');
 		});
 
-	    });
-
+	      $location.path('photos/' + photo._id);
+	    }, function(errorResponse) {
+		 $scope.error = errorResponse.data.message;
+	       });
 	  };
+
+
 
 	  // Find a list of Photos
 	  $scope.find = function() {
@@ -156,26 +200,10 @@ var photo = new Photos ({
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
+			 Socket.on('photo.liked', function(photo) {
+		    console.log('photo liked');
 
+		});
          };  
         }]);
-/*
-.directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-            
-            element.bind('change', function(){
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-    	
-}]);
 
-
- */
