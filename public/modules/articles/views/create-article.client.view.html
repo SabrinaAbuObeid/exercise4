@@ -18,6 +18,13 @@
 					</div>
 				</div>
 				<div class="form-group">
+	                <label class="control-label" for="name">Image</label>
+	                <div class="controls">
+	                    <input type="file"  data-ng-model="image" id="image" my-file-upload="uploadImage" required>
+	                     {{selectedFile.name}}
+	                </div>
+	            </div>
+				<div class="form-group">
 					<input ng-model='Socket' type="submit" class="btn btn-default" >
 				</div>
 				<div data-ng-show="error" class="text-danger">

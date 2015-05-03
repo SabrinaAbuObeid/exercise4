@@ -5,18 +5,25 @@
 angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Socket', 'Authentication', 'Articles',
 	function($scope, $stateParams, $location, Socket, Authentication, Articles) {
 		$scope.authentication = Authentication;
+		//image upload
+		$scope.image='';
+		$scope.uploadImage = function(e){
+        	console.log(e.target.files[0]);
+        	$scope.image=e.target.files[0];
+    	};
+
 		var _title = '';
 		var _content = '';
 		$scope.preview = function(){
 
-		var	title = function(newTitle) {
-      return angular.isDefined(newTitle) ? (_title = newTitle) : _title;
-      
-    };
-    var	content = function(newContent) {
-      return angular.isDefined(newContent) ? (_content = newContent) : _content;
-     
-    };
+			var	title = function(newTitle) {
+	     	 return angular.isDefined(newTitle) ? (_title = newTitle) : _title;
+	      
+	    	};
+	   		 var	content = function(newContent) {
+	      		return angular.isDefined(newContent) ? (_content = newContent) : _content;
+	     
+	    	};
 		};
 		// Create new Article
 		$scope.create = function() {
@@ -24,6 +31,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 			var article = new Articles({
 				title: this.title,
 				content: this.content,
+				image: this.image
 				
 				
 			});

@@ -5,8 +5,13 @@
  */
 var users = require('../../app/controllers/users.server.controller'),
 	articles = require('../../app/controllers/articles.server.controller');
+	//pic upload
+	//multer  = require('multer');
 
 module.exports = function(app) {
+	//pic routes
+	//app.use(multer({ dest: './public/uploads/'}));
+
 	// Article Routes
 	app.route('/articles')
 		.get(articles.list)
