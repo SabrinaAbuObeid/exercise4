@@ -30,11 +30,18 @@
 <div class="page-body" >
 		
  <div class="jumbotron3 text-center "   >
- 	<image  ng-src="{{photo.image}}" style="max-width:150%"/>
+ 	<image  ng-src="{{photo.image}}" style="max-width:70%"/>
 			<div class="row " >
 				<div   class=" col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
 					<h1 class= "font-style" class="jumbotron2 img-responsive text-center" ng-show="updateValue" class="ng-hide " > </h1>
-					
+					<h2>
+			Likes: <span data-ng-bind="photo.likes"></span>
+			Views: <span data-ng-bind="photo.views"></span>
+		
+
+			
+
+		</h2>
 					
 				</div>
 			</div>
@@ -43,14 +50,7 @@
 					
 			
 		<div >
-		<h2>
-			Likes: <span data-ng-bind="photo.likes"></span>
-			Views: <span data-ng-bind="photo.views"></span>
 		
-
-			
-
-		</h2>
 		</div>
 
 	</div>
