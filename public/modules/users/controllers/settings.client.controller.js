@@ -68,14 +68,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			});
 		};
 
-		//uploading prof pic
-		    $scope.image='';
-
-	    $scope.uploadImage = function(e){
-	        console.log(e.target.files[0]);
-	        $scope.image=e.target.files[0];
-
-	    };
+		
 
 
 
