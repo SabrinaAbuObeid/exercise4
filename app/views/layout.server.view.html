@@ -51,8 +51,8 @@
 <body class="ng-cloak">
 	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-inverse"></header>
 	<section class="content">
-		<div ng-show="myValue" class="ng-hide"> New Photo Blog Posted! </div>
 		<section class="container">
+		<div ng-show="myValue" class="ng-hide notification"> <h3>New Photo Blog Posted! </h3></div>
 
 			{% block content %}{% endblock %}
 		</section>
