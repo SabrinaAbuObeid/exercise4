@@ -63,28 +63,42 @@ var photo = new Photos ({
 	  };
 
 
-	  var _sepiaImage= '';
-	  var _greyscaleImage= '';
+	  //var _sepiaImage= '';
+	  //var _greyscaleImage= '';
 	  var _invertImage= '';
-		
+	
+	// Update existing Photo
+$scope.update = function() {
+var photo = $scope.photo;
+
+photo.$update(function() {
+//Socket.on('photo.updated', function(photo) {
+//console.log('photo updated');
+//});
+
+$location.path('photos/' + photo._id);
+}, function(errorResponse) {
+$scope.error = errorResponse.data.message;
+});
+};
 	  // Update existing Photo
-	  $scope.update = function() {
+	  $scope.updateFilter = function() {
 	    
-	    var	sepiaImage = function(newSepiaImage) {
-	    	 console.log('client view title preview');
+	    //var	sepiaImage = function(newSepiaImage) {
+	    	 //console.log('client view title preview');
      // return angular.isDefined(newSepiaImage) ? (_sepiaImage = newSepiaImage) : _sepiaImage;
      
-    };
+    //};
      var	invertImage = function(newInvertImage) {
 	    	 console.log('client view title preview');
 
       //return angular.isDefined(newInvertImage) ? (_invertImage = newInvertImage) : _invertImage;
      
     };
-    var	greyscaleImage = function(newGreyscaleImage) {
+    //var	greyscaleImage = function(newGreyscaleImage) {
      // return angular.isDefined(newGreyscaleImage) ? (_greyscaleImage = newGreyscaleImage) : _greyscaleImage;
       
-    };
+    //};
     var photo = $scope.photo;
 	    photo.$update(function() {
 	      $location.path('photos/' + photo._id);

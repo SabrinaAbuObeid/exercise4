@@ -87,11 +87,32 @@ exports.like = function(req, res) {
 	 }
   });
 };
+/**
+* Update a Photo
+*/
+exports.update = function(req, res) {
+var photo = req.photo ;
+
+photo = _.extend(photo , req.body);
+
+photo.save(function(err) {
+if (err) {
+return res.status(400).send({
+message: errorHandler.getErrorMessage(err)
+});
+} else {
+
+res.jsonp(photo);
+//var socketio = req.app.get('socketio'); // tacke out socket instance from the app container
+//socketio.sockets.emit('photo.updated', photo); // emit an event for all connected clients
+}
+});
+};
 
 /**
  * Update a Photo
  */
-exports.update = function(req, res) {
+exports.updateFilter = function(req, res) {
 	var photo = req.photo ;
 	var sepiaImage = req.sepiaImage;
 	var invertImage = req.invertImage;
