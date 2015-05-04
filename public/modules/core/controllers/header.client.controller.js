@@ -14,13 +14,17 @@ angular.module('core').controller('HeaderController', ['$scope', '$rootScope', '
 		$scope.$on('$stateChangeSuccess', function() {
 			$scope.isCollapsed = false;
 		});
-		Socket.on('article.created', function(article) {
-			console.log(article);
-                  $rootScope.myValue=true;
-		});
+		//Socket.on('article.created', function(article) {
+			//console.log(article);
+                  //$rootScope.myValue=true;
+		//});
 		Socket.on('photo.updated', function(photo) {
 			console.log(photo);
                   $rootScope.updateValue=true;
+		});
+		Socket.on('blog.updated', function(blog) {
+			console.log(blog);
+                  $rootScope.blogValue=true;
 		});
 	}
 ]);
