@@ -101,9 +101,10 @@ exports.update = function(req, res) {
 	var photo = req.photo ;
 	
 	photo = _.extend(photo , req.body);
-	//photo.image = photo.image.substring(0, photo.image.indexOf('.'))+'-inv'+photo.image.substring(photo.image.indexOf('.'), photo.image.length);
-	var invertImage = req.invertImage;
 	
+	var invertImage = req.invertImage;
+	var greyscaleImage = req.greyscaleImage;
+	var sepiaImage = req.greyscaleImage;
 	
 	photo.save(function(err) {
 		if (err) {
@@ -115,10 +116,32 @@ exports.update = function(req, res) {
 			invertImage = new Jimp('./public/'+photo.image, function () 
 			{
   			this.invert(); 
+  			//photo.image = photo.image.substring(0, photo.image.indexOf('.'))+'-inv'+photo.image.substring(photo.image.indexOf('.'), photo.image.length);
   			this.write('./public/'+photo.image); 
 
   			
-  			return;
+			});
+		
+		}
+		else if(photo.greyscaleImage){
+			greyscaleImage = new Jimp('./public/'+photo.image, function () 
+			{
+  			this.greyscale(); 
+  			//photo.image = photo.image.substring(0, photo.image.indexOf('.'))+'-gre'+photo.image.substring(photo.image.indexOf('.'), photo.image.length);
+  			this.write('./public/'+photo.image); 
+
+  			
+			});
+		
+		}
+		else if(photo.sepiaImage){
+			sepiaImage = new Jimp('./public/'+photo.image, function () 
+			{
+  			this.sepia(); 
+  			//photo.image = photo.image.substring(0, photo.image.indexOf('.'))+'-sep'+photo.image.substring(photo.image.indexOf('.'), photo.image.length);
+  			this.write('./public/'+photo.image); 
+
+  			
 			});
 		
 		}
@@ -131,53 +154,6 @@ exports.update = function(req, res) {
 };
 
 
-
-
-
-
-
-
-
-/**
- * Update a Photo with a  Filter 
- -----Update existing Photo with a filter (same thing as the update function except is called updateFilter 
-	  so it can connect to jimp separately. The photo.save was removed because I want it to write with jimp
-	  but be able to hit the update function to save and see the result.)-------
-exports.updateFilter = function(req, res) {
-	var photo = req.photo.invertImage ;
-	//photo = _.extend(photo , req.body);
-	//var sepiaImage = req.sepiaImage;
-	//var greyscaleImage = req.greyscaleImage;
-	var invertImage = req.invertImage;
-		if(invertImage===1){
-			invertImage = new Jimp('./public/'+photo.image, function () 
-			{
-  			this.invert(); 
-  			this.write('./public/'+photo.image); 
-  			console.log('The invertImage SERVER function has been accessed.');
-			});
-		}
-			/*greyscaleImage = new Jimp('./public/'+photo.image, function (req,res) 
-			{
-			
-  			this.greyscale(); 
-  			
-  			this.write('./public/'+photo.image); 
-  		
-			});
-			sepiaImage = new Jimp('./public/'+photo.image, function (req,res) 
-			{
-				
-  			this.sepia(); 
-  			
-  			this.write('./public/'+photo.image); 
-  		
-			});
-			res.jsonp(photo);
-	
-	
-};
-*/
 
 
 

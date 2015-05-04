@@ -15,8 +15,7 @@ exports.create = function(req, res) {
 	var blog = new Blog(req.body);
 	blog.user = req.user;
   
-  	var blog = new Blog(req.body);
-  	blog.user = req.user;
+  	
 
   	if(req.files.image) {
     blog.image =req.files.image.path.substring(7);

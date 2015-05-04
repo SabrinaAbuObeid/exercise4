@@ -69,13 +69,15 @@ var photo = new Photos ({
 	  so it can connect to jimp separately)-------*/
 
 	  $scope.updateFilter = function(updateFilter) {
-  	    $scope.photo.invertImage =1;
+  	    
 	   var photo = $scope.photo;
 	    var invertImage = $scope.invertImage;
+	    var greyscaleImage = $scope.greyscaleImage;
+	    var sepiaImage = $scope.sepiaImage;
 	    photo.$update(function() {
 	    	 Socket.on('photo.updated', function(photo) {
 		    console.log('photo updated');
-		    //$location.path('photos/' + photo._id);
+		    $location.path('photos/' + photo._id);
 
 		});
 	  
@@ -84,44 +86,35 @@ var photo = new Photos ({
 	  console.log('client view filter preview');
       return angular.isDefined(newInvertImage) ? (_invertImage = newInvertImage) : _invertImage;
       };
+      /* THE BELOW CODE IS FOR REALTIME VIEW OF THE FILTERS. IT WORKS WITH OUR BLOG SECTION
+SO ONCE FILTERS WORK, LITTLE TO NO TWEAKING WILL MAKE THIS WORK. THIS IS NOT AFFECTING
+THE CODE AS OF NOW*/
+	
 
+      var _sepiaImage= '';
+	  var _greyscaleImage= '';
+	  
+	  var sepiaImage = function(newSepiaImage) {
+	    	 console.log('client view title preview');
+      return angular.isDefined(newSepiaImage) ? (_sepiaImage = newSepiaImage) : _sepiaImage;
+      };
+       var greyscaleImage = function(newGreyscaleImage) {
+      return angular.isDefined(newGreyscaleImage) ? (_greyscaleImage = newGreyscaleImage) : _greyscaleImage;
+      };
 	  $http.get('/uploads/' + photo._id ).success(function(invertImage) {
 	  	});
 		$http.put('/uploads/' + photo._id ).success(function(invertImage) {
 	  	});
 
- /* 
--------I tried the above commented out code in many forms changing paths and also changing photo._id to photo.image and there
-			always seems to be an error. The code works the same with or with out them and what really breaks it is if
-			I remove the location.path code below. I feel like this is where the error is because it isn't loading the result
-			on it's own but the filter applies.-------------------------------------------------------------------------
-	  	*/
+ 
 	  	console.log('The invertImage CLIENT function has been accessed.');
 	  
-	      $location.path('photos/' + photo._id);
+	      
 	    }, function(errorResponse) {
 		 $scope.error = errorResponse.data.message;
 	       });
 
 
-	   
-
-
-/* THE BELOW CODE IS FOR REALTIME VIEW OF THE FILTERS. IT WORKS WITH OUR BLOG SECTION
-SO ONCE FILTERS WORK, LITTLE TO NO TWEAKING WILL MAKE THIS WORK. THIS IS NOT AFFECTING
-THE CODE AS OF NOW*/
-	
-
-      //var _sepiaImage= '';
-	  //var _greyscaleImage= '';
-	  
-	  /*var sepiaImage = function(newSepiaImage) {
-	    	 console.log('client view title preview');
-      return angular.isDefined(newSepiaImage) ? (_sepiaImage = newSepiaImage) : _sepiaImage;
-      };*/ 
-      /* var greyscaleImage = function(newGreyscaleImage) {
-      return angular.isDefined(newGreyscaleImage) ? (_greyscaleImage = newGreyscaleImage) : _greyscaleImage;
-      };*/
 	  };
 
 
@@ -136,9 +129,10 @@ THE CODE AS OF NOW*/
 	    photo.$update(function() {
 	    	 Socket.on('photo.updated', function(photo) {
 		    console.log('photo updated');
+		    $location.path('photos/' + photo._id);
 		});
 
-	      $location.path('photos/' + photo._id);
+	      
 	    }, function(errorResponse) {
 		 $scope.error = errorResponse.data.message;
 	       });
