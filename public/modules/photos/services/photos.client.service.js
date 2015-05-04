@@ -9,6 +9,7 @@ angular.module('photos').factory('Photos', ['$resource',
 		}, {
 			update: {
 				method: 'PUT'
+				
 			}
 		});
 	}

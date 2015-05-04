@@ -75,6 +75,7 @@ var photo = new Photos ({
 	    photo.$update(function() {
 	    	 Socket.on('photo.updated', function(photo) {
 		    console.log('photo updated');
+		    //$location.path('photos/' + photo._id);
 
 		});
 	  
@@ -94,7 +95,6 @@ var photo = new Photos ({
 			always seems to be an error. The code works the same with or with out them and what really breaks it is if
 			I remove the location.path code below. I feel like this is where the error is because it isn't loading the result
 			on it's own but the filter applies.-------------------------------------------------------------------------
-
 	  	*/
 	  	console.log('The invertImage CLIENT function has been accessed.');
 	  
@@ -206,4 +206,3 @@ THE CODE AS OF NOW*/
 		});
          };  
         }]);
-

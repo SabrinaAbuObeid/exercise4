@@ -101,6 +101,7 @@ exports.update = function(req, res) {
 	var photo = req.photo ;
 	
 	photo = _.extend(photo , req.body);
+	//photo.image = photo.image.substring(0, photo.image.indexOf('.'))+'-inv'+photo.image.substring(photo.image.indexOf('.'), photo.image.length);
 	var invertImage = req.invertImage;
 	
 	
@@ -142,16 +143,12 @@ exports.update = function(req, res) {
  -----Update existing Photo with a filter (same thing as the update function except is called updateFilter 
 	  so it can connect to jimp separately. The photo.save was removed because I want it to write with jimp
 	  but be able to hit the update function to save and see the result.)-------
-
-
-
 exports.updateFilter = function(req, res) {
 	var photo = req.photo.invertImage ;
 	//photo = _.extend(photo , req.body);
 	//var sepiaImage = req.sepiaImage;
 	//var greyscaleImage = req.greyscaleImage;
 	var invertImage = req.invertImage;
-
 		if(invertImage===1){
 			invertImage = new Jimp('./public/'+photo.image, function () 
 			{
@@ -159,7 +156,6 @@ exports.updateFilter = function(req, res) {
   			this.write('./public/'+photo.image); 
   			console.log('The invertImage SERVER function has been accessed.');
 			});
-
 		}
 			/*greyscaleImage = new Jimp('./public/'+photo.image, function (req,res) 
 			{
@@ -177,12 +173,10 @@ exports.updateFilter = function(req, res) {
   			this.write('./public/'+photo.image); 
   		
 			});
-
 			res.jsonp(photo);
 	
 	
 };
-
 */
 
 
