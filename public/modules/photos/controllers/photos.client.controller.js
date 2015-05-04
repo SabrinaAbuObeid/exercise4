@@ -75,6 +75,7 @@ var photo = new Photos ({
 	    photo.$update(function() {
 	    	 Socket.on('photo.updated', function(photo) {
 		    console.log('photo updated');
+		    //$location.path('photos/' + photo._id);
 
 		});
 	  

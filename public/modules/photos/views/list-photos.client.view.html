@@ -3,7 +3,7 @@
         <h1>My Photos</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="photo in photos" data-ng-show="((authentication.user) && (authentication.user._id == photo.user._id))" data-ng-href="#!/photos/{{photo._id}}" class="list-group-item">
+        <a data-ng-repeat="photo in photos" data-ng-show="((authentication.user) && (authentication.user._id == photo.user._id))" data-ng-href="#!/photos/{{photo._id}}" class="list-group-item streamPhoto">
 			<small class="list-group-item-text">
 				Posted on<br>
 				<span data-ng-bind="photo.created | date:'medium'"></span>
