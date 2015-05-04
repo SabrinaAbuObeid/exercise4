@@ -3,18 +3,18 @@
         <h1>New Blog</h1>
     </div>
     <div class="col-md-12">
-        <form name="blogForm" class="form-horizontal" action="blogs/" method="post"  data-ng-submit="create()" enctype="multipart/form-data" novalidate>
+        <form name="blogForm" class="form-horizontal" action="blogs/" method="post"  data-ng-submit="create()" enctype="multipart/form-data" novalidate style="float: left; width:49%;">
             <fieldset>
                 <div class="form-group" ng-class="{ 'has-error': blogForm.title.$dirty && blogForm.title.$invalid }">
                     <label class="control-label" for="title">Title</label>
                     <div class="controls">
-                        <input name="title" type="text" data-ng-model="title" id="title" class="form-control" placeholder="Title" required>
+                        <input name="title" type="text" data-ng-model="preview.title" id="title" class="form-control" placeholder="Title" data-ng-change="title=preview.title" ng-model-options="{ getterSetter: true }" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="content">Content</label>
                     <div class="controls">
-                        <textarea name="content" data-ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+                        <textarea name="content" data-ng-model="preview.content" data-ng-change="content=preview.content" ng-model-options="{ getterSetter: true }" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -25,12 +25,37 @@
                 </div>
 <input type="file" name="image" data-ng-model="imageHolder.image" id="image" accept="image/*" required/><br/>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-default">
+                    <input ng-model='Socket' type="submit" class="btn btn-default">
                 </div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>
 				</div>
             </fieldset>
         </form>
+    
+    <div style="width:49%;margin-left:2%; float:left;">
+            <center>
+        <label class="control-label" for="content">Preview</label>
+            </center>
+        </div>
+        <div class="list-group-item" style="width:49%;margin-left:2%; float:left;">
+            <div class="row" >
+                <p class="lead"  cols="30" rows="10" >
+                    <hr>
+                    <h2 class="intro-text text-center"><span ng-bind="preview.title" ></span> </h2>
+                    <hr>
+                </p>
+            </div>
+                 <span ng-bind="preview.content" > </span> 
+        </div>
     </div>
+        <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Copyright &copy; Filter Canyon, Inc 2015</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </section>
