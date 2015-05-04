@@ -77,7 +77,7 @@ var photo = new Photos ({
 	    photo.$update(function() {
 	    	 Socket.on('photo.updated', function(photo) {
 		    console.log('photo updated');
-		    $location.path('photos/' + photo._id);
+		   // $location.path('photos/' + photo._id);
 
 		});
 	  
@@ -88,7 +88,7 @@ var photo = new Photos ({
       };
       /* THE BELOW CODE IS FOR REALTIME VIEW OF THE FILTERS. IT WORKS WITH OUR BLOG SECTION
 SO ONCE FILTERS WORK, LITTLE TO NO TWEAKING WILL MAKE THIS WORK. THIS IS NOT AFFECTING
-THE CODE AS OF NOW*/
+THE CODE AS OF NOW
 	
 
       var _sepiaImage= '';
@@ -100,7 +100,7 @@ THE CODE AS OF NOW*/
       };
        var greyscaleImage = function(newGreyscaleImage) {
       return angular.isDefined(newGreyscaleImage) ? (_greyscaleImage = newGreyscaleImage) : _greyscaleImage;
-      };
+      };*/
 	  $http.get('/uploads/' + photo._id ).success(function(invertImage) {
 	  	});
 		$http.put('/uploads/' + photo._id ).success(function(invertImage) {

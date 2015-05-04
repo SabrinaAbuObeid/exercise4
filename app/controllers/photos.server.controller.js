@@ -112,18 +112,19 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-				if(photo.invertImage){
+				
 			invertImage = new Jimp('./public/'+photo.image, function () 
 			{
   			this.invert(); 
-  			//photo.image = photo.image.substring(0, photo.image.indexOf('.'))+'-inv'+photo.image.substring(photo.image.indexOf('.'), photo.image.length);
+  			photo.image = photo.image.substring(0, photo.image.indexOf('.'))+'-inv'+photo.image.substring(photo.image.indexOf('.'), photo.image.length);
   			this.write('./public/'+photo.image); 
-
+  			res.jsonp(photo);
   			
 			});
 		
-		}
-		else if(photo.greyscaleImage){
+	
+		/*
+		 if(photo.greyscaleImage){
 			greyscaleImage = new Jimp('./public/'+photo.image, function () 
 			{
   			this.greyscale(); 
@@ -134,7 +135,7 @@ exports.update = function(req, res) {
 			});
 		
 		}
-		else if(photo.sepiaImage){
+		if(photo.sepiaImage){
 			sepiaImage = new Jimp('./public/'+photo.image, function () 
 			{
   			this.sepia(); 
@@ -144,12 +145,12 @@ exports.update = function(req, res) {
   			
 			});
 		
-		}
+		}*/
 		
 	}
 	var socketio = req.app.get('socketio'); // tacke out socket instance from the app container
 			socketio.sockets.emit('photo.updated', photo); // emit an event for all connected clients
-		res.jsonp(photo);
+		
 	});
 };
 
