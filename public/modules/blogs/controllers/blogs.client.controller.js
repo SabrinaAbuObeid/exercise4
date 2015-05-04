@@ -1,8 +1,8 @@
 'use strict';
 
 // Blogs controller
-angular.module('blogs').controller('BlogsController', ['$scope', '$stateParams', '$location', '$http', 'Authentication', 'Blogs',
-	function($scope, $stateParams, $location, $http, Authentication, Blogs) {
+angular.module('blogs').controller('BlogsController', ['$scope', '$stateParams', '$location', '$http', 'Socket', 'Authentication', 'Blogs',
+	function($scope, $stateParams, $location, $http, Socket, Authentication, Blogs) {
 		$scope.authentication = Authentication;
 
 var blog = new Blogs ({
@@ -60,6 +60,9 @@ var blog = new Blogs ({
 			var blog = $scope.blog;
 
 			blog.$update(function() {
+				Socket.on('photo.updated', function(photo) {
+		   		console.log('photo updated');
+				});
 				$location.path('blogs/' + blog._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;

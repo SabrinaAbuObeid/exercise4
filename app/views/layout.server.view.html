@@ -70,6 +70,15 @@
 -->
 </center>
 <center>
+	<div data-ng-controller="BlogsController" data-ng-init="findOne()" ng-show="blogValue" class="ng-hide sockets-show-hide" > 
+		<span data-ng-bind="blog.user.displayName"></span>
+			<hr>
+		Updated A Blog! 
+		<hr>
+	</div>
+ 
+</center>
+<center>
 	<div data-ng-controller="PhotosController" data-ng-init="findOne()" ng-show="updateValue" class="ng-hide sockets-show-hide" > 
 		<span data-ng-bind="photo.user.displayName"></span>
 			<hr>
