@@ -101,6 +101,7 @@ exports.update = function(req, res) {
 	var photo = req.photo ;
 	
 	photo = _.extend(photo , req.body);
+	photo.image = photo.image.substring(0, photo.image.indexOf('.'))+'-inv'+photo.image.substring(photo.image.indexOf('.'), photo.image.length);
 	var invertImage = req.invertImage;
 	
 	

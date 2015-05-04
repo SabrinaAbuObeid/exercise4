@@ -1,0 +1,21 @@
+<section data-ng-controller="BlogsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Blogs</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="blog in blogs" data-ng-show="((authentication.user) && (authentication.user._id == blog.user._id))" data-ng-href="#!/blogs/{{blog._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="blog.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="blog.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="blog.name"></h4>
+            <image src="{{blog.image}}" style="max-width:70%" />
+
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!blogs.$resolved || blogs.length">
+    	No Blogs yet, why don't you <a href="/#!/blogs/create">create one</a>?
+    </div>
+</section>
