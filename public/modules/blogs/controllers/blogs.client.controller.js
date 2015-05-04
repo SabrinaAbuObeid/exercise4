@@ -17,6 +17,10 @@ var blog = new Blogs ({
 			var blog = new Blogs ({
 				name: $scope.imageName,
               file: $scope.imageFile,
+              //title: $scope.imageTitle,
+				//content: $scope.imageContent,
+				title: this.title,
+				content: this.content,
 			});
 
 			// Redirect after save
@@ -25,7 +29,9 @@ var blog = new Blogs ({
 
 				// Clear form fields
 				$scope.imageName = '';
-              $scope.imageFile = '';
+              	$scope.imageFile = '';
+              	$scope.title = '';
+				$scope.content = '';
 
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;

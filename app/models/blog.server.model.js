@@ -10,6 +10,17 @@ var mongoose = require('mongoose'),
  * Blog Schema
  */
 var BlogSchema = new Schema({
+	title: {
+		type: String,
+		default: '',
+		trim: true,
+		required: 'Title cannot be blank'
+	},
+	content: {
+		type: String,
+		default: '',
+		trim: true
+	},
 	name: {
 		type: String,
 		default: '',
